@@ -1,27 +1,60 @@
-# Laravel PHP Framework
+# Example Laravel Chat
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+This chat example is using Broadcasting events which was introduced in Laravel 5.1. This feature is intended to integrate with Pub-Sub functionality such as Pusher / Redis and Socket.io through Laravel Event.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+[Broadcasting Events in Laravel 5.1 - laracasts](https://laracasts.com/lessons/broadcasting-events-in-laravel-5-1)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+In real world applications, we need not only broadcasting messages/notifications but also private messages/notifications. This example app is my feasibility study to prove Laravel and Socket.io can be well integrated.
 
-## Official Documentation
+* Share user's session between Laravel and Socket.io/Node.js
+* Push message to specified user by Laravel Event through Redis and Socket.io
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Useful Links
 
-## Contributing
+* [Easy Socket.IO + BroadCasting in Laravel - LukePOLO](https://lukepolo.com/blog/view/laravel-socket.io-broadcast)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Prerequisites 
 
-## Security Vulnerabilities
+This example application has been tested in the environment below.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+* Laravel 5.2
+* PHP7
+* Node.js v4 or above
 
-## License
+## Preparation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+MySQL and Redis are mandatory to run this application, install its if you've not done yet.
+
+Install dependencies.
+
+```
+$ composer install
+$ npm install
+```
+
+Migrate.
+
+```
+$ php artisan migrate
+```
+
+Review envrionment parameters in `.env` and also public/js/app.js (host address is hard coded in JS, sorry). 
+
+## Run the example application
+
+* Ensure mysql is running
+* Ensure redis is running
+* Ensure nginx/php aritisan serve is running
+
+Run socket.io server
+
+```
+$ node socket-server.js
+```
+
+1. Access to http://192.168.33.40/, and create two users and logged in with different browsers. 
+2. Access to http://192.168.33.40/home, you can chat using two browsers. 
+
+## TODO
+
+* Elixir
