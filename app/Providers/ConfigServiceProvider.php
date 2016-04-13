@@ -11,6 +11,7 @@ class ConfigServiceProvider extends ServiceProvider
     {
         if ($this->app->environment("local")) {
             $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
+            $this->app->register('Barryvdh\Debugbar\ServiceProvider');
         }
         config([
             //
