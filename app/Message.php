@@ -26,11 +26,6 @@ class Message extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $value);
-    }
-
     public function scopeRelated($query, $userId1, $userId2)
     {
         $query->where(function ($_query) use ($userId1) {

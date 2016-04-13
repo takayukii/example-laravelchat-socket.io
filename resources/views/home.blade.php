@@ -13,7 +13,7 @@
                                 <label for="sel1">To</label>
                                 <select class="form-control" id="sel1">
                                     @foreach($users as $user)
-                                    <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -31,7 +31,7 @@
                     <hr/>
                     <ul>
                         @foreach($messages as $message)
-                        <li>{{ $message['message'] }} by {{ $message['from_user']['name'] }} at {{ $message['created_at']->format('Y-m-d H:i:s') }}</li>
+                        <li>{{ $message->message }} by {{ $message->fromUser->name }} at {{ $message->created_at }}</li>
                         @endforeach
                     </ul>
                 </div>
