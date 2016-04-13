@@ -22,13 +22,14 @@
       data: data,
       success: function (message){
         console.log('success', message);
+        $textMessage.val('');
       }
     })
 
   });
 
   var $selectTo = $('#selectTo');
-  $selectTo.change(function(){
+  $selectTo.change(function (){
     var userId = $selectTo.val();
     $.ajax({
       type: 'GET',
@@ -44,6 +45,25 @@
         $ulMessages.append(elmMessages);
       }
     })
+  });
+
+  var $ulMessages = $('#ulMessages');
+  var socket = io.connect('//192.168.33.40:3000');
+  socket.on('chat', function (message, fn){
+    console.log('on chat', message);
+
+    if (+$selectTo.val() === +message.to_user.id || +$selectTo.val() === +message.from_user.id) {
+      $ulMessages.prepend('<li>' + message.message + ' by ' + message.from_user.name + ' at ' + message.created_at + '</li>');
+    }
+  });
+
+  $.ajax({
+    type: 'GET',
+    url: '/me',
+    success: function (user){
+      console.log('user', user);
+      socket.emit('user', user);
+    }
   });
 
 }(jQuery));

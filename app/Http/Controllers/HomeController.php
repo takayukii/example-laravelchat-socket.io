@@ -45,6 +45,11 @@ class HomeController extends Controller
         return view('home', compact('users', 'messages'));
     }
 
+    public function getAuthUser()
+    {
+        return \Auth::user()->toJson();
+    }
+
     public function getMessages($userId)
     {
         $userId = intval($userId);
