@@ -24,6 +24,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = [];
+        $messages = [];
+
+        if (\Auth::check()) {
+            $users = \App\User::select(['id', 'name'])->get()->toArray();
+            $authUser = \Auth::user();
+            $users = array_filter($users, function ($user) use ($authUser) {
+                if ($user['id'] !== $authUser->id) {
+                    return true;
+                }
+            });
+
+            if (count($users) > 0) {
+                $firstUser = current($users);
+                $messages = \App\Message::with('fromUser')->with('toUser')
+                    ->related($authUser->id, $firstUser['id'])
+                    ->orderBy('created_at', 'desc')
+                    ->get()->toArray();
+            }
+        }
+
+        return view('home', compact('users', 'messages'));
     }
 }

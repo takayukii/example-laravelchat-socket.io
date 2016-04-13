@@ -12,10 +12,9 @@
                             <div class="form-group">
                                 <label for="sel1">To</label>
                                 <select class="form-control" id="sel1">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -31,9 +30,9 @@
                     </div>
                     <hr/>
                     <ul>
-                        <li>a</li>
-                        <li>b</li>
-                        <li>c</li>
+                        @foreach($messages as $message)
+                        <li>{{ $message['message'] }} by {{ $message['from_user']['name'] }} at {{ $message['created_at']->format('Y-m-d H:i:s') }}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
