@@ -10,8 +10,8 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="sel1">To</label>
-                                <select class="form-control" id="sel1">
+                                <label for="selectTo">To</label>
+                                <select id="selectTo" class="form-control">
                                     @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
@@ -20,16 +20,17 @@
                             <div class="form-group">
                                 <label>Message</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Say something..."/>
+                                    <input id="textMessage" type="text" class="form-control" placeholder="Say something..."/>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button">Send!</button>
+                                        <button id="btnSend" class="btn btn-primary" type="button">Send!</button>
                                     </span>
                                 </div>
                             </div>
+                            <input id="csrfToken" type="hidden" name="csrf-token" value="{{ csrf_token() }}"/>
                         </div>
                     </div>
                     <hr/>
-                    <ul>
+                    <ul id="ulMessages">
                         @foreach($messages as $message)
                         <li>{{ $message->message }} by {{ $message->fromUser->name }} at {{ $message->created_at }}</li>
                         @endforeach

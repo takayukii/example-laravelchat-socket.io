@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/messages/to/{id}', 'HomeController@getMessages');
+Route::post('/messages/to/{id}', 'HomeController@createMessage');

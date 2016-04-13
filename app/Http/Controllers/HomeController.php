@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -41,5 +43,21 @@ class HomeController extends Controller
         }
 
         return view('home', compact('users', 'messages'));
+    }
+
+    public function getMessages($userId)
+    {
+        $userId = intval($userId);
+        $messages = \App\Message::with('fromUser')->with('toUser')
+            ->related(\Auth::user()->id, $userId)->orderBy('created_at', 'desc')->get();
+        return $messages->toJson();
+    }
+
+    public function createMessage($userId)
+    {
+        $data = \Request::all();
+        $data['from_user_id'] = \Auth::user()->id;
+        $data['to_user_id'] = $userId;
+        Message::create($data);
     }
 }
