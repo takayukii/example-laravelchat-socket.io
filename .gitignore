@@ -4,3 +4,5 @@
 Homestead.yaml
 Homestead.json
 .idea
+/public/js
+/public/css
