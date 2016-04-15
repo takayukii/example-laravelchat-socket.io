@@ -38,6 +38,12 @@ Migrate.
 $ php artisan migrate
 ```
 
+Build js.
+
+```
+$ gulp
+```
+
 Review envrionment parameters in `.env` and also public/js/app.js (host address is hard coded in JS, sorry). 
 
 ## Run the example application

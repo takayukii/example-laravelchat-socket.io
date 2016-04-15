@@ -12,5 +12,19 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
     })
-  ]
+  ],
+  module: {
+    loaders: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          plugins: ['transform-runtime'],
+          presets: ['es2015']
+        }
+      }
+    ]
+  }
 }
