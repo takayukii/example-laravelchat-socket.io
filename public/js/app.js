@@ -57,13 +57,4 @@
     }
   });
 
-  $.ajax({
-    type: 'GET',
-    url: '/me',
-    success: function (user){
-      console.log('user', user);
-      socket.emit('user', user);
-    }
-  });
-
 }(jQuery));

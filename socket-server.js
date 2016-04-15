@@ -21,13 +21,6 @@ const io = require('socket.io')(server);
 io.use(middlewareAuthCheck);
 
 io.on('connection', (socket) => {
-  socket.on('user', (user) => {
-    user = JSON.parse(user);
-    console.log('user', user);
-    // mark with userId
-    socket.userId = user.id;
-  });
-
   socket.on('disconnect', () => {
     console.log('disconnect..');
   });
@@ -75,6 +68,24 @@ function middlewareAuthCheck(socket, next) {
       if (err) {
         next(err);
       } else if (session) {
+
+        // Needed to unserialize 2 times when fetch session from redis.. why?
+        var unserialized = PHPUnserialize.unserialize(session);
+        unserialized = PHPUnserialize.unserialize(unserialized);
+        console.log('-------------');
+        console.log('session', unserialized);
+        console.log('-------------');
+
+        // Retrieve userId from session data
+        const keys = Object.keys(unserialized);
+        const filteredKeys = keys.filter((key) => {
+          return /^login_web_[a-z0-9]+$/.test(key);
+        });
+        if (filteredKeys.length === 1) {
+          console.log('userId from session', filteredKeys[0]);
+          socket.userId = unserialized[filteredKeys[0]];
+        }
+
         next();
       } else {
         next(new Error('No session in redis'));
@@ -113,6 +124,7 @@ function decryptCookie(cookie) {
     decipher.update(value),
     decipher.final()
   ]);
+  console.log('resultSerialized', resultSerialized);
 
   return PHPUnserialize.unserialize(resultSerialized);
 };
