@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+console.log('test');
+
 const $btnSend = $('#btnSend');
 $btnSend.click(() => {
 
@@ -48,7 +50,7 @@ $selectTo.change(() => {
 });
 
 const $ulMessages = $('#ulMessages');
-const socket = io.connect('//192.168.33.40:3000');
+const socket = require('socket.io-client')(SOCKETIO_ENDPOINT);
 socket.on('chat', (message, fn) => {
   console.log('on chat', message);
 

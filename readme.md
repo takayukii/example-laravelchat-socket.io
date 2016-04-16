@@ -20,10 +20,10 @@ This example application has been tested in the environment below.
 * Laravel 5.2
 * PHP7
 * Node.js v4 or above
+* MySQL
+* Redis
 
 ## Preparation
-
-MySQL and Redis are mandatory to run this application, install its if you've not done yet.
 
 Install dependencies.
 
@@ -38,13 +38,13 @@ Migrate.
 $ php artisan migrate
 ```
 
+Review envrionment parameters in `.env`, you may need to change SOCKTIO_ENDPOINT.
+
 Build js.
 
 ```
 $ gulp
-```
-
-Review envrionment parameters in `.env` and also public/js/app.js (host address is hard coded in JS, sorry). 
+``` 
 
 ## Run the example application
 
@@ -58,9 +58,9 @@ Run socket.io server
 $ node socket-server.js
 ```
 
-1. Access to http://192.168.33.40/, and create two users and logged in with different browsers. 
-2. Access to http://192.168.33.40/home, you can chat using two browsers. 
+1. Access to http://<YOUR_ENDPOINT>/, and create two users and logged in with different browsers. 
+2. Access to http://<YOUR_ENDPOINT>/home, you can chat using two browsers. 
 
 ## TODO
 
-* Elixir
+* Test
