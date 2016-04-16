@@ -58,8 +58,8 @@ Run socket.io server
 $ node socket-server.js
 ```
 
-1. Access to http://<YOUR_ENDPOINT>/, and create two users and logged in with different browsers. 
-2. Access to http://<YOUR_ENDPOINT>/home, you can chat using two browsers. 
+1. Access to http://<YOUR_ENDPOINT\>/, and create two users and logged in with different browsers. 
+2. Access to http://<YOUR_ENDPOINT\>/home, you can chat using two browsers. 
 
 ## TODO
 
